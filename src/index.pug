@@ -1,0 +1,12 @@
+doctype html
+html(lang='en')
+
+  head
+    meta(charset='UTF-8')
+    title=title
+    link(rel='stylesheet', href=(env==='production' ? cssMin : css))
+
+  body(ng-app=appName)
+    sin-header
+    ui-view
+    script(src=(env==='production' ? jsMin : js))
