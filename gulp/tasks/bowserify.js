@@ -20,7 +20,7 @@ gulp.task('browserify', ['eslint', 'templates'], function() {
       transform: ['require-globify']
     })
     .bundle()
-    .pipe(source('app.js'))
+    .pipe(source('app.min.js'))
     .pipe(buffer())
     .pipe(uglify()) // pack
     .pipe(gulp.dest('./dist/js'));
@@ -38,8 +38,8 @@ gulp.task('browserify', ['eslint', 'templates'], function() {
     .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({
-      loadMaps: true
-    })) // load browserify maps
+      loadMaps: true // load browserify maps
+    }))
     .pipe(sourcemaps.write('./')) // write external sourcemap file
     .pipe(gulp.dest('./dist/js'));
 

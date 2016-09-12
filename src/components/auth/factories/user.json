@@ -1,0 +1,12 @@
+{
+  "_id": "001",
+  "Employee": false,
+  "FirstName": "David",
+  "LastName": "McKeurion",
+  "Avatar": "http://img2.finalfantasyxiv.com/accimg/cf/01/cf010718096b518e07d1b2f74f9efc7dd432c984.jpg",
+  "Email": "sdave@live.com",
+  "Company": "Scotch Tape",
+  "Interests": ["NodeJS", "HapiJS"],
+  "Description": "Just a poor noob from a small town.",
+  "Groups": []
+}

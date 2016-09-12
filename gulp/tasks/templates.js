@@ -1,10 +1,12 @@
 'use strict';
 
 var gulp = require('gulp');
+var pkg = require('../../package.json');
 var htmlmin = require('gulp-htmlmin');
 var templateCache = require('gulp-angular-templatecache');
+
 var templateOptions = {
-  module: 'lennarCRM.templatesModule',
+  module: pkg.name+'.templatesModule',
   standalone: true,
   moduleSystem: 'Browserify',
   root: './src'

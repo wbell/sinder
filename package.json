@@ -1,5 +1,6 @@
 {
   "name": "sinder-ui",
+  "directivePrefix": "sin",
   "nameFriendly": "Sinder",
   "version": "0.0.0",
   "description": "Looking for me? ;)",
@@ -7,7 +8,7 @@
   "scripts": {
     "start": "gulp clean && gulp watch",
     "build": "gulp clean && gulp build",
-    "build-prod": "export NODE_ENV=production && gulp clean && gulp sass",
+    "build-prod": "export NODE_ENV=production && gulp clean && gulp build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,7 +26,8 @@
     "angular-animate": "^1.5.8",
     "angular-aria": "^1.5.8",
     "angular-material": "^1.1.1",
-    "angular-ui-router": "^1.0.0-beta.2",
+    "angular-swing": "^1.0.0",
+    "angular-ui-router": "^0.2.x",
     "browserify": "^13.1.0",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^2.0.0",

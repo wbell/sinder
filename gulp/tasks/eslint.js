@@ -5,7 +5,7 @@ var eslint = require('gulp-eslint');
 
 gulp.task('eslint', function(){
 
-  return gulp.src(['./src/**/*.js', '!./src/libs/**/*.js'])
+  return gulp.src(['./src/**/*.js'])
     .pipe(eslint())
     .pipe(eslint.format());
 });

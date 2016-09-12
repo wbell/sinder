@@ -1,5 +1,8 @@
 // angular material
 @import '../../node_modules/angular-material/angular-material.scss';
 
+// app includes
+@import './variables.scss';
+
 // Components
 @import '../components/**/*.scss';

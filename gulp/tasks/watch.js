@@ -14,10 +14,10 @@ var config = {
   injectChanges: true
 };
 
-gulp.task('watch', function() {
+gulp.task('watch', ['build'], function() {
 
   browserSync.init(config);
 
-  gulp.watch(['./src/**/*.html', './src/**/*.js', './package.json'], ['browserify']);
+  gulp.watch(['./src/**/*.html', './src/**/*.js', '!./src/components/templates/**/*.js', './package.json'], ['browserify']);
   gulp.watch(['./src/scss/**/*.scss','./src/components/**/*.scss'], ['sass']);
 });

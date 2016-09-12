@@ -1,0 +1,21 @@
+<div layout="column" layout-padding ng-cloak>
+
+  <md-content class="md-no-momentum">
+
+    <form ng-submit="login(info)">
+
+      <md-input-container class="md-block">
+        <input ng-model="info.email" type="email" placeholder="Email" ng-required="true">
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <input ng-model="info.password" type="password" placeholder="Password" ng-required="true">
+      </md-input-container>
+
+      <md-button type="submit" class="md-raised md-primary">Submit</md-button>
+
+    </form>
+
+  </md-content>
+
+</div>
