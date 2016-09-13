@@ -11,7 +11,8 @@ var appModule = angular.module(pkg.name, [
   pkg.name+'.templatesModule',
   pkg.name+'.wrapperModule',
   pkg.name+'.headerModule',
-  pkg.name+'.authModule'
+  pkg.name+'.authModule',
+  pkg.name+'.apiModule'
 ]);
 
 appModule.config([

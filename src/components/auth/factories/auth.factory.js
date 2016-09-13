@@ -1,20 +1,20 @@
 'use strict';
 
-var userData = require('./user.json');
-
-var authFactory = function($rootScope, $http, $q, $log){
+var authFactory = function($rootScope, $http, $q, $log, api){
 
   var authorizationStatus = false;
   var loggedInUser = null;
 
   var authenticate = function authenticate(info){
-    $log.debug('authenticating with info:', info);
 
-    user = userData;
-    authorizationStatus = true;
-    $rootScope.$broadcast('authorization', true);
+    return api.authenticate(info).then(function(userData){
+      loggedInUser = userData;
+      authorizationStatus = true;
+      $rootScope.$broadcast('authorization', true);
 
-    return $q.resolve(userData);
+      return userData;
+    });
+
   };
 
   var authorized = function authorized(){

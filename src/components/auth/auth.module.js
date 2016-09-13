@@ -14,6 +14,7 @@ authModule.factory(moduleName+'.authFactory', [
   '$http',
   '$q',
   '$log',
+  pkg.name+'.apiModule.apiFactory',
   authFactory
 ]);
 
