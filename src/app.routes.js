@@ -19,7 +19,19 @@ var routes = function routes($stateProvider, $urlRouterProvider) {
   .state({
     name: 'browse',
     url: '/browse',
-    template: 'Browse sinder!'
+    template: 'Browse Sinder!'
+  })
+
+  .state({
+    name: 'chats',
+    url: '/chats',
+    template: 'Your Chats'
+  })
+
+  .state({
+    name: 'settings',
+    url: '/settings',
+    template: 'Edit Settings'
   });
 
 };

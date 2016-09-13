@@ -8,5 +8,6 @@ html(lang='en')
 
   body(ng-app=appName)
     sin-header
-    ui-view
+    div(class='view-wrapper', ng-controller=appName+'.wrapperModule.wrapperCtrl')
+      ui-view(ng-class="{'slide-left':slideLeft, 'slide-right':!slideLeft}")
     script(src=(env==='production' ? jsMin : js))

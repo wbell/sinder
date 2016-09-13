@@ -20,4 +20,5 @@ gulp.task('watch', ['build'], function() {
 
   gulp.watch(['./src/**/*.html', './src/**/*.js', '!./src/components/templates/**/*.js', './package.json'], ['browserify']);
   gulp.watch(['./src/scss/**/*.scss','./src/components/**/*.scss'], ['sass']);
+  gulp.watch(['./src/**/*.pug'], ['pug']);
 });

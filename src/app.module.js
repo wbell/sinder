@@ -9,6 +9,7 @@ var appModule = angular.module(pkg.name, [
   'ui.router',
   'gajus.swing',
   pkg.name+'.templatesModule',
+  pkg.name+'.wrapperModule',
   pkg.name+'.headerModule',
   pkg.name+'.authModule'
 ]);
