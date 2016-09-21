@@ -1,0 +1,92 @@
+[
+  {
+    "_id": "001",
+    "Employee": false,
+    "FirstName": "David",
+    "LastName": "McKeurion",
+    "Avatar": "http://img2.finalfantasyxiv.com/accimg/cf/01/cf010718096b518e07d1b2f74f9efc7dd432c984.jpg",
+    "Email": "sdave@live.com",
+    "Company": "Scotch Tape",
+    "Interests": ["NodeJS", "HapiJS"],
+    "Description": "Just a poor noob from a small town.",
+    "Groups": []
+  },
+  {
+    "_id": "002",
+    "Employee": true,
+    "FirstName": "Tom",
+    "LastName": "Harris",
+    "Avatar": "http://www.stevesmaritime.com/and.jpg",
+    "Email": "thurr@pwc.com",
+    "Location": "EC Hallandale",
+    "Discipline": "Technology",
+    "Skills": ["NodeJS", "HapiJS", "C#.NET", "Java"],
+    "Industries": ["Pharmaceutical"],
+    "Description": "Back-end is the future. Back-end is life."
+  },
+  {
+    "_id": "003",
+    "Employee": true,
+    "FirstName": "John",
+    "LastName": "Petrello",
+    "Avatar": "http://www.digitalgurus.co.uk/sites/default/files/styles/guru_popup_image/public/picture-216-1412673161.jpg?itok=blBzbyOw&width=500&height=500&iframe=true",
+    "Email": "jpet@pwc.com",
+    "Location": "EC Hallandale",
+    "Discipline": "Technology",
+    "Skills": ["AngularJS", "GulpJS", "NodeJS"],
+    "Industries": ["Vacation", "Hospitality"],
+    "Description": "Gotta catch'em all."
+  },
+  {
+    "_id": "004",
+    "Employee": true,
+    "FirstName": "Jessica",
+    "LastName": "Scheeler",
+    "Avatar": "https://lh6.googleusercontent.com/-xet8adMkGS0/AAAAAAAAAAI/AAAAAAAACyc/567_ab1whQ0/photo.jpg",
+    "Email": "jscheel@pwc.com",
+    "Location": "EC Hallandale",
+    "Discipline": "Technology",
+    "Skills": ["D3", "Kraken", "AngularJS"],
+    "Industries": ["Government", "Hospitality"],
+    "Description": "Have you ever seen a 4-legged phoenix?"
+  },
+  {
+    "_id": "005",
+    "Employee": true,
+    "FirstName": "Matt",
+    "LastName": "Finney",
+    "Avatar": "https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/1/005/0b7/17b/0d31dda.jpg",
+    "Email": "mfinn@pwc.com",
+    "Location": "EC Chicago",
+    "Discipline": "Technology",
+    "Skills": ["AngularJS", "Angular Material", "D3"],
+    "Industries": ["Pharmaceutical"],
+    "Description": "I'm only kinda decent at Mario Kart."
+  },
+  {
+    "_id": "006",
+    "Employee": true,
+    "FirstName": "Gustavo",
+    "LastName": "Paris",
+    "Avatar": "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAgHAAAAJGYxZjUzZjc0LTVjM2ItNDc1Mi05OTM4LTNiYjg0MTk2NmExYQ.jpg",
+    "Email": "gpar@pwc.com",
+    "Location": "EC Hallandale",
+    "Discipline": "User Experience Design (UED)",
+    "Skills": ["Sketch", "Adobe PhotoShop", "Adobe Flash"],
+    "Industries": ["Real Estate"],
+    "Description": "Best designer alive, since the best designer retired."
+  },
+  {
+    "_id": "007",
+    "Employee": true,
+    "FirstName": "Sean",
+    "LastName": "Weeks",
+    "Avatar": "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAe7AAAAJGUzNmZkNGFmLWFhOGYtNDgwOC04YjEyLWRlYjQ4MWZkMDU3OQ.jpg",
+    "Email": "swee@pwc.com",
+    "Location": "EC Chicago",
+    "Discipline": "User Experience Design (UED)",
+    "Skills": ["Adobe PhotoShop"],
+    "Industries": ["Real Estate"],
+    "Description": "Yes, I'm better than Matt in MK8."
+  }
+]
