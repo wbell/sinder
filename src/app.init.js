@@ -2,6 +2,8 @@
 
 // libraries
 require('angular');
+require('firebase');
+require('angularfire');
 require('angular-ui-router');
 require('angular-material');
 require('angular-swing');

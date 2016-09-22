@@ -1,17 +1,27 @@
 'use strict';
 
-var user = require('../stubs/user.json');
+var firebase = window.firebase = require('firebase');
 
 var apiFactory = function apiFactory($rootScope, $http, $q, $log){
 
-  var authenticate = function authenticate(info){
-    $log.info('authenticating with info: ', info);
+  var firebaseConfig = {
+    apiKey: 'AIzaSyBdfFlQcDOsP6rFkCYx_HCLBwKTcfS2Mls',
+    authDomain: 'sinder-fd3b7.firebaseapp.com',
+    databaseURL: 'https://sinder-fd3b7.firebaseio.com',
+    storageBucket: 'sinder-fd3b7.appspot.com'
+  };
 
-    return $q.resolve(user);
+  var initFirebase = function initFirebase(){
+    firebase.initializeApp(firebaseConfig);
+  };
+
+  var fb = function fb(){
+    return firebase;
   };
 
   return {
-    authenticate: authenticate
+    initFirebase: initFirebase,
+    fb: fb
   };
 };
 

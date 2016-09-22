@@ -5,7 +5,7 @@ var loginCtrl = function ($rootScope, $scope, $state, authFactory){
   $scope.info = {};
 
   $scope.login = function(info){
-    return authFactory.authenticate(info).then(function(){
+    return authFactory.login().then(function(){
       $state.go('browse');
     });
   };

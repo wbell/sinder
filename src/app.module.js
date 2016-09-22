@@ -3,10 +3,14 @@
 var angular = require('angular');
 var routes = require('./app.routes');
 var pkg = require('../package.json');
+var api = require('./components/api/factories/api.factory')();
+
+api.initFirebase();
 
 var appModule = angular.module(pkg.name, [
   'ngMaterial',
   'ui.router',
+  'firebase',
   'gajus.swing',
   pkg.name+'.templatesModule',
   pkg.name+'.wrapperModule',

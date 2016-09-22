@@ -1,34 +1,46 @@
 'use strict';
 
-var authFactory = function($rootScope, $http, $q, $log, api){
+var authFactory = function authFactory($rootScope, $http, $q, $log, $firebaseAuth){
 
+  var auth = $firebaseAuth();
   var authorizationStatus = false;
   var loggedInUser = null;
 
-  var authenticate = function authenticate(info){
+  /**
+   * login to firebase
+   * @return {Promise} - resolves with user info
+   */
+  var login = function login(){
 
-    return api.authenticate(info).then(function(userData){
-      loggedInUser = userData;
+    return auth.$signInWithPopup('google').then(function(firebaseUser){
+      loggedInUser = firebaseUser;
       authorizationStatus = true;
-      $rootScope.$broadcast('authorization', true);
+      $rootScope.$broadcast('authorization', authorizationStatus);
+      $log.info('loggedInUser', loggedInUser);
 
-      return userData;
+      return loggedInUser;
+    }).catch(function(error){
+      $log.error('Auth failed: ', error);
     });
 
+  };
+
+  var logout = function logout(){
+    return auth.$signOut().then(function(){
+      $log.warn('Signed Out');
+      authorizationStatus = false;
+      $rootScope.$broadcast('authorization', authorizationStatus);
+    });
   };
 
   var authorized = function authorized(){
     return authorizationStatus;
   };
 
-  var user = function user(){
-    return loggedInUser;
-  };
-
   return {
-    authenticate: authenticate,
-    authorized: authorized,
-    user: user
+    login: login,
+    logout: logout,
+    authorized: authorized
   };
 };
 
