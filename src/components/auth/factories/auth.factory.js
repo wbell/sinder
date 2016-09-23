@@ -3,8 +3,6 @@
 var authFactory = function authFactory($rootScope, $http, $q, $log, $firebaseAuth){
 
   var auth = $firebaseAuth();
-  var authorizationStatus = false;
-  var loggedInUser = null;
 
   /**
    * login to firebase
@@ -13,12 +11,8 @@ var authFactory = function authFactory($rootScope, $http, $q, $log, $firebaseAut
   var login = function login(){
 
     return auth.$signInWithPopup('google').then(function(firebaseUser){
-      loggedInUser = firebaseUser;
-      authorizationStatus = true;
-      $rootScope.$broadcast('authorization', authorizationStatus);
-      $log.info('loggedInUser', loggedInUser);
-
-      return loggedInUser;
+      $log.info('firebaseUser', firebaseUser);
+      return firebaseUser;
     }).catch(function(error){
       $log.error('Auth failed: ', error);
     });
@@ -28,14 +22,21 @@ var authFactory = function authFactory($rootScope, $http, $q, $log, $firebaseAut
   var logout = function logout(){
     return auth.$signOut().then(function(){
       $log.warn('Signed Out');
-      authorizationStatus = false;
-      $rootScope.$broadcast('authorization', authorizationStatus);
     });
   };
 
   var authorized = function authorized(){
-    return authorizationStatus;
+    return !!auth.$getAuth();
   };
+
+  auth.$onAuthStateChanged(function() {
+    var isAuthorized = authorized();
+
+    $log.debug('auth status changed', isAuthorized);
+
+    $rootScope.$broadcast('authorization', isAuthorized);
+
+  });
 
   return {
     login: login,

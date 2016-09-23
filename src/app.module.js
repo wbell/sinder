@@ -28,17 +28,39 @@ appModule.config([
 appModule.run([
   '$rootScope',
   '$state',
+  '$log',
   pkg.name+'.authModule.authFactory',
-  function($rootScope, $state, auth){
+  function($rootScope, $state, $log, auth){
 
     $rootScope.$on('$stateChangeStart', function(e, toState){
+      $log.debug('authorized?', auth.authorized(), 'toState?', toState);
 
       // redirect to login if unauthorized
       if(!auth.authorized() && toState.name !== 'login'){
         e.preventDefault();
         $state.go('login');
       }
+
+      // if authorized, don't direct to login page
+      if(auth.authorized() && toState.name === 'login'){
+        e.preventDefault();
+        $state.go('browse');
+      }
     });
+
+    $rootScope.$on('authorization', function(e, val){
+
+      if($state.current.name==='login' && val){
+        $state.go('browse');
+      }
+
+      if($state.current.name!=='login' && !val){
+        $state.go('login');
+      }
+
+    });
+
+
   }
 ]);
 

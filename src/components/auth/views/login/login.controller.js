@@ -4,10 +4,8 @@ var loginCtrl = function ($rootScope, $scope, $state, authFactory){
 
   $scope.info = {};
 
-  $scope.login = function(info){
-    return authFactory.login().then(function(){
-      $state.go('browse');
-    });
+  $scope.login = function(){
+    return authFactory.login();
   };
 };
 
