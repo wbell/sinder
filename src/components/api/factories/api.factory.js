@@ -2,7 +2,7 @@
 
 var firebase = window.firebase = require('firebase');
 
-var apiFactory = function apiFactory($rootScope, $http, $q, $log){
+var apiFactory = function apiFactory(/*$rootScope, $http, $q, $log*/){
 
   var firebaseConfig = {
     apiKey: 'AIzaSyBdfFlQcDOsP6rFkCYx_HCLBwKTcfS2Mls',
@@ -19,9 +19,24 @@ var apiFactory = function apiFactory($rootScope, $http, $q, $log){
     return firebase;
   };
 
+  var getRef = function getRef(path, id){
+    var rootRef = firebase.database.ref();
+    var ref = rootRef.child(path);
+
+    if(id) ref = ref.child(id);
+
+    return ref;
+  };
+
   return {
+
+    // initialization
     initFirebase: initFirebase,
-    fb: fb
+    firebase: fb,
+
+    // get db ref
+    getRef: getRef
+
   };
 };
 
