@@ -30,19 +30,19 @@ appModule.run([
   '$state',
   '$log',
   pkg.name+'.authModule.authFactory',
-  function($rootScope, $state, $log, auth){
+  function($rootScope, $state, $log, authFactory){
 
     $rootScope.$on('$stateChangeStart', function(e, toState){
-      $log.debug('authorized?', auth.authorized(), 'toState?', toState);
+      $log.debug('authorized?', authFactory.authorized(), 'toState?', toState);
 
       // redirect to login if unauthorized
-      if(!auth.authorized() && toState.name !== 'login'){
+      if(!authFactory.authorized() && toState.name !== 'login'){
         e.preventDefault();
         $state.go('login');
       }
 
       // if authorized, skip to browse
-      if(auth.authorized() && toState.name === 'login'){
+      if(authFactory.authorized() && toState.name === 'login'){
         e.preventDefault();
         $state.go('browse');
       }
@@ -54,7 +54,7 @@ appModule.run([
       // 1. get / create profile
       // 2. go to browse
       if(val){
-        auth.profileCheck(val).then(function(profile){
+        authFactory.profileCheck(val).then(function(profile){
           $rootScope.profile = profile;
           if($state.current.name==='login') $state.go('browse');
           $log.info('$rootScope.profile', $rootScope.profile);
