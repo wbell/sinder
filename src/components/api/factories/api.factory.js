@@ -20,7 +20,7 @@ var apiFactory = function apiFactory(/*$rootScope, $http, $q, $log*/){
   };
 
   var getRef = function getRef(path, id){
-    var rootRef = firebase.database.ref();
+    var rootRef = firebase.database().ref();
     var ref = rootRef.child(path);
 
     if(id) ref = ref.child(id);

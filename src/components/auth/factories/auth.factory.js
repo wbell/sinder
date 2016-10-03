@@ -1,6 +1,6 @@
 'use strict';
 
-var authFactory = function authFactory($rootScope, $http, $q, $log, $firebaseAuth){
+var authFactory = function authFactory($rootScope, $http, $q, $log, $firebaseAuth, $firebaseObject, api){
 
   var auth = $firebaseAuth();
 
@@ -26,7 +26,31 @@ var authFactory = function authFactory($rootScope, $http, $q, $log, $firebaseAut
   };
 
   var authorized = function authorized(){
-    return !!auth.$getAuth();
+    return auth.$getAuth();
+  };
+
+  var profileCheck = function profileCheck(firebaseUserObject){
+    var ref = api.getRef('users', firebaseUserObject.uid);
+    var profile = $firebaseObject(ref);
+
+    return profile.$loaded(function(){
+      if(profile.$value === null){
+        return createProfile(profile, firebaseUserObject);
+      } else {
+        return profile;
+      }
+    });
+
+  };
+
+  var createProfile = function createProfile(fbo, authInfo){
+    fbo.displayName = authInfo.displayName;
+    fbo.email = authInfo.email;
+    fbo.photoURL = authInfo.photoURL;
+
+    return fbo.$save().then(function(){
+      return fbo;
+    });
   };
 
   auth.$onAuthStateChanged(function() {
@@ -41,7 +65,8 @@ var authFactory = function authFactory($rootScope, $http, $q, $log, $firebaseAut
   return {
     login: login,
     logout: logout,
-    authorized: authorized
+    authorized: authorized,
+    profileCheck: profileCheck
   };
 };
 

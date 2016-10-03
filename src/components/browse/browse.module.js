@@ -22,7 +22,7 @@ browseModule.controller(moduleName+'.browseCtrl', [
   '$rootScope',
   '$scope',
   '$state',
-  pkg.name+'authModule.authFactory',
+  pkg.name+'.authModule.authFactory',
   browseCtrl
 ]);
 

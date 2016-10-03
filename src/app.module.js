@@ -41,7 +41,7 @@ appModule.run([
         $state.go('login');
       }
 
-      // if authorized, don't direct to login page
+      // if authorized, skip to browse
       if(auth.authorized() && toState.name === 'login'){
         e.preventDefault();
         $state.go('browse');
@@ -50,10 +50,18 @@ appModule.run([
 
     $rootScope.$on('authorization', function(e, val){
 
-      if($state.current.name==='login' && val){
-        $state.go('browse');
+      // if authorized
+      // 1. get / create profile
+      // 2. go to browse
+      if(val){
+        auth.profileCheck(val).then(function(profile){
+          $rootScope.profile = profile;
+          if($state.current.name==='login') $state.go('browse');
+          $log.info('$rootScope.profile', $rootScope.profile);
+        });
       }
 
+      // if not on login, and not authorized, go to login
       if($state.current.name!=='login' && !val){
         $state.go('login');
       }
