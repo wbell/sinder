@@ -1,8 +1,8 @@
 'use strict';
 
-var browseCtrl = function browseCtrl($rootScope, $scope, $state, auth){
+var settingsCtrl = function settingsCtrl($rootScope, $scope, $state, api){
 
 
 };
 
-module.exports = browseCtrl;
+module.exports = settingsCtrl;

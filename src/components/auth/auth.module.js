@@ -15,8 +15,6 @@ authModule.factory(moduleName+'.authFactory', [
   '$q',
   '$log',
   '$firebaseAuth',
-  '$firebaseObject',
-  pkg.name+'.apiModule.apiFactory',
   authFactory
 ]);
 

@@ -4,7 +4,7 @@ var wrapperCtrl = function wrapperCtrl($rootScope, $scope){
 
   $scope.slideLeft = true;
 
-  var stateOrder = ['login', 'browse', 'chats', 'settings'];
+  var stateOrder = ['login', 'chats', 'browse', 'settings'];
 
   $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState){
     var toIndex = stateOrder.indexOf(toState.name);

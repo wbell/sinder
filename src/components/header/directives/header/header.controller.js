@@ -16,11 +16,6 @@ var headerCtrl = function headerCtrl($rootScope, $scope, $state){
 
   $scope.tabs = [
     {
-      name: 'Browse',
-      icon: '',
-      state: 'browse'
-    },
-    {
       name: 'Chats',
       icon: '',
       state: 'chats'

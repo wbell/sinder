@@ -16,7 +16,8 @@ var appModule = angular.module(pkg.name, [
   pkg.name+'.wrapperModule',
   pkg.name+'.headerModule',
   pkg.name+'.authModule',
-  pkg.name+'.apiModule'
+  pkg.name+'.apiModule',
+  pkg.name+'.settingsModule'
 ]);
 
 appModule.config([
@@ -30,7 +31,8 @@ appModule.run([
   '$state',
   '$log',
   pkg.name+'.authModule.authFactory',
-  function($rootScope, $state, $log, authFactory){
+  pkg.name+'.settingsModule.settingsFactory',
+  function($rootScope, $state, $log, authFactory, settingsFactory){
 
     $rootScope.$on('$stateChangeStart', function(e, toState){
       $log.debug('authorized?', authFactory.authorized(), 'toState?', toState);
@@ -41,10 +43,10 @@ appModule.run([
         $state.go('login');
       }
 
-      // if authorized, skip to browse
+      // if authorized, skip to chats
       if(authFactory.authorized() && toState.name === 'login'){
         e.preventDefault();
-        $state.go('browse');
+        $state.go('chats');
       }
     });
 
@@ -52,11 +54,11 @@ appModule.run([
 
       // if authorized
       // 1. get / create profile
-      // 2. go to browse
+      // 2. go to chats
       if(val){
-        authFactory.profileCheck(val).then(function(profile){
+        settingsFactory.profileCheck(val).then(function(profile){
           $rootScope.profile = profile;
-          if($state.current.name==='login') $state.go('browse');
+          if($state.current.name==='login') $state.go('chats');
           $log.info('$rootScope.profile', $rootScope.profile);
         });
       }
