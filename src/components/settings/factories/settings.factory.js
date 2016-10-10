@@ -5,6 +5,7 @@ var settingsFactory = function settingsFactory($rootScope, $state, $log, $fireba
   // domain used to determine employee vs standard user
   var employeeDomain = 'pwc.com';
 
+
   /**
    * Checks for the existance of user profile in the database
    * @param  {Object} authObject - firebase authentication object
@@ -21,8 +22,8 @@ var settingsFactory = function settingsFactory($rootScope, $state, $log, $fireba
         return profile;
       }
     });
-
   };
+
 
   /**
    * Creates the sinder profile object based on mappings
@@ -42,14 +43,16 @@ var settingsFactory = function settingsFactory($rootScope, $state, $log, $fireba
     });
   };
 
+
   /**
    * Checks if email belongs to the org
    * @param  {String} email - email address from the auth provider
-   * @return {Boolean}       
+   * @return {Boolean}
    */
   function employeeCheck(email){
     return email.slice(-employeeDomain.length) === employeeDomain;
   }
+
 
   return {
     profileCheck: profileCheck,
