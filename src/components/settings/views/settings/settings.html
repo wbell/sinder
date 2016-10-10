@@ -1,0 +1,33 @@
+<md-content class="route-view settings md-no-momentum" layout="column" layout-padding>
+
+  <form ng-submit="saveSettings(profile)">
+
+    <md-input-container class="md-block">
+      <img ng-src="{{profile.photoURL || defaultPhoto}}" alt="{{profile.displayName}}">
+      <label for="photoURL">Photo URL</label>
+      <input id="photoURL" type="text" ng-model="profile.photoURL" placeholder="Photo URL" ng-required="profile.employee">
+    </md-input-container>
+
+    <md-input-container class="md-block">
+      <label for="displayName">Full Name</label>
+      <input id="displayName" ng-model="profile.displayName" type="text" placeholder="Full Name" ng-required="true" ng-disabled="true">
+    </md-input-container>
+
+    <md-input-container class="md-block">
+      <label for="nickName">Nickname</label>
+      <input id="nickName" ng-model="profile.nickName" type="text" placeholder="(e.g. {{randomNickname}})">
+    </md-input-container>
+
+    <md-input-container class="md-block">
+      <label for="email">Email Address</label>
+      <input id="email" ng-model="profile.email" type="email" placeholder="Password" ng-required="true">
+    </md-input-container>
+
+    <div layout="column" layout-align="start">
+      <md-button type="submit" class="md-raised md-primary">Save</md-button>
+      <md-button type="button" class="md-raised md-warn" ng-click="resetDefaults(profile)">Reset Google Defaults</md-button>
+    </div>
+
+  </form>
+
+</md-content>

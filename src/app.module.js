@@ -57,9 +57,8 @@ appModule.run([
       // 2. go to chats
       if(val){
         settingsFactory.profileCheck(val).then(function(profile){
-          $rootScope.profile = profile;
+          $log.info('logged in profile', profile);
           if($state.current.name==='login') $state.go('chats');
-          $log.info('$rootScope.profile', $rootScope.profile);
         });
       }
 

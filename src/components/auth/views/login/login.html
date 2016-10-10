@@ -1,21 +1,17 @@
-<div layout="column" layout-padding ng-cloak>
+<md-content class="route-view login md-no-momentum" layout="column" layout-padding>
 
-  <md-content class="md-no-momentum">
+  <form ng-submit="login(info)">
 
-    <form ng-submit="login(info)">
+    <!-- <md-input-container class="md-block">
+      <input ng-model="info.email" type="email" placeholder="Email" ng-required="true">
+    </md-input-container>
 
-      <!-- <md-input-container class="md-block">
-        <input ng-model="info.email" type="email" placeholder="Email" ng-required="true">
-      </md-input-container>
+    <md-input-container class="md-block">
+      <input ng-model="info.password" type="password" placeholder="Password" ng-required="true">
+    </md-input-container> -->
 
-      <md-input-container class="md-block">
-        <input ng-model="info.password" type="password" placeholder="Password" ng-required="true">
-      </md-input-container> -->
+    <md-button type="submit" class="md-raised md-primary">Sign in with Google</md-button>
 
-      <md-button type="submit" class="md-raised md-primary">Sign in with Google</md-button>
+  </form>
 
-    </form>
-
-  </md-content>
-
-</div>
+</md-content>

@@ -31,7 +31,17 @@ var routes = function routes($stateProvider, $urlRouterProvider) {
   .state({
     name: 'settings',
     url: '/settings',
-    template: 'Edit Settings'
+    templateUrl: './src/components/settings/views/settings/settings.html',
+    controller: pkg.name+'.settingsModule.settingsCtrl',
+    resolve: {
+      'profile': [
+        pkg.name+'.authModule.authFactory',
+        pkg.name+'.settingsModule.settingsFactory',
+        function(authFactory, settingsFactory){
+          return settingsFactory.profileCheck(authFactory.authorized());
+        }
+      ]
+    }
   });
 
 };

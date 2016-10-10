@@ -22,7 +22,7 @@ settingsModule.controller(moduleName+'.settingsCtrl', [
   '$rootScope',
   '$scope',
   '$state',
-  pkg.name+'.apiModule.apiFactory',
+  'profile',
   settingsCtrl
 ]);
 
