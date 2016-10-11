@@ -22,6 +22,9 @@ settingsModule.controller(moduleName+'.settingsCtrl', [
   '$rootScope',
   '$scope',
   '$state',
+  '$log',
+  moduleName+'.settingsFactory',
+  pkg.name+'.authModule.authFactory',
   'profile',
   settingsCtrl
 ]);

@@ -2,7 +2,7 @@
 
 var SillyName = require('sillyname');
 
-var settingsCtrl = function settingsCtrl($rootScope, $scope, $state, profile){
+var settingsCtrl = function settingsCtrl($rootScope, $scope, $state, $log, settingsFactory, authFactory, profile){
 
   // 3-way data bind to the firebase profile
   // profile.$bindTo($scope, 'profile');
@@ -26,7 +26,20 @@ var settingsCtrl = function settingsCtrl($rootScope, $scope, $state, profile){
   };
 
   $scope.resetDefaults = function(profile){
-    return profile;
+
+    profile.$remove().then(function(ref) {
+
+      $log.debug('profile removed, ref', ref);
+
+      settingsFactory
+        .profileCheck(authFactory.authorized())
+        .then(function(pro){
+          $scope.profile = pro;
+        });
+
+    }, function(error) {
+      $rootScope.$broadcast('handle_error', error);
+    });
   };
 
 };
