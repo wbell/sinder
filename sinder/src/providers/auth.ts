@@ -12,17 +12,24 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Auth {
 
-  firebase: any = null;
+  db: any = null;
 
-  constructor(public http: Http, public fb: Firebase) {
+  authObj: any = null;
+
+  user: any = null;
+
+  employeeDomain: string = 'pwc.com';
+
+  constructor(public http: Http, public firebase: Firebase) {
     console.log('Hello Auth Provider');
-    this.firebase = fb.ref();
+    this.db = firebase.db();
+    this.attachAuthListener();
   }
 
   authenticate(){
-    const provider = new this.firebase.auth.GoogleAuthProvider();
+    const provider = new this.db.auth.GoogleAuthProvider();
 
-    return this.firebase.auth().signInWithPopup(provider).then(result => {
+    return this.db.auth().signInWithPopup(provider).then(result => {
       console.info('authenticate success', result);
       return result;
     }, err => {
@@ -32,12 +39,49 @@ export class Auth {
 
   signOut(){
 
-    return this.firebase.auth().signOut().then(()=>{
+    return this.db.auth().signOut().then(()=>{
       console.info('signOut success');
       return true;
     }, err => {
       console.error('signOut error', err);
     });
+  }
+
+  attachAuthListener(){
+    this.db.auth().onAuthStateChanged(fbauth=>{
+      this.authObj = fbauth;
+      this.profileChecks(fbauth);
+    });
+  }
+
+  profileChecks(authObj){
+    this.firebase.get('users', authObj.uid).then(profile => {
+      if(!profile) {
+        this.createUser(authObj);
+      }
+    });
+  }
+
+  getUser(){
+    return this.db.UserInfo;
+  }
+
+  createUser(authObject){
+    let profile: any = {};
+
+    profile.displayName = authObject.displayName;
+    profile.email = authObject.email;
+    profile.photoURL = authObject.photoURL;
+    profile.employee = this.employeeCheck(authObject.email);
+
+    return this.firebase.set(profile, 'users', authObject.uid).then(res => {
+      console.log('User profile successfully created', profile, res);
+      return res;
+    });
+  }
+
+  employeeCheck(email){
+    return email.slice(-this.employeeDomain.length) === this.employeeDomain;
   }
 
 }

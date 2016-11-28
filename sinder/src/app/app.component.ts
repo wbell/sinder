@@ -60,7 +60,7 @@ export class MyApp {
   }
 
   attachAuthListener(){
-    this.firebase.ref().auth().onAuthStateChanged(user => {
+    this.firebase.db().auth().onAuthStateChanged(user => {
       console.log('auth state changed from app component', user);
 
       if (user) {

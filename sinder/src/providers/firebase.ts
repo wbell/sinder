@@ -23,8 +23,39 @@ export class Firebase {
     console.log('firebase initialized');
   }
 
-  ref(){
+  db(){
     return firebase;
+  }
+
+  getRef(path, id?){
+    const rootRef = firebase.database().ref();
+    let ref = rootRef.child(path);
+
+    if(id) ref = ref.child(id);
+
+    return ref;
+  }
+
+  get(path, id?, options?){
+    const ref = this.getRef(path, id);
+
+    if(!options){
+      return ref.once('value').then(data => {
+        return data.val();
+      });
+    }
+  }
+
+  set(params, path, id?){
+    const ref = this.getRef(path, id);
+
+    return ref.set(params);
+  }
+
+  update(params, path, id?){
+    const ref = this.getRef(path, id);
+
+    return ref.update(params);
   }
 
 }
