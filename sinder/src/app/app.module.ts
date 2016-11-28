@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 import { LoginPage } from '../pages/login/login';
+import { SettingsPage } from '../pages/settings/settings';
 import { Auth } from '../providers/auth';
 import { Firebase } from '../providers/firebase';
 
@@ -12,7 +13,8 @@ import { Firebase } from '../providers/firebase';
     MyApp,
     Page1,
     Page2,
-    LoginPage
+    LoginPage,
+    SettingsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -22,7 +24,8 @@ import { Firebase } from '../providers/firebase';
     MyApp,
     Page1,
     Page2,
-    LoginPage
+    LoginPage,
+    SettingsPage
   ],
   providers: [
     Firebase,
