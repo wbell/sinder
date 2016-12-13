@@ -121,6 +121,10 @@ export class SettingsPage {
     });
   }
 
+  logout(){
+    this.auth.signOut();
+  }
+
   ionViewDidLoad() {
     console.log('Hello SettingsPage Page');
   }
