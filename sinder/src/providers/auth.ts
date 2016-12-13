@@ -50,20 +50,23 @@ export class Auth {
   attachAuthListener(){
     this.db.auth().onAuthStateChanged(fbauth=>{
       this.authObj = fbauth;
-      this.profileChecks(fbauth);
+
+      if(fbauth) this.profileChecks(fbauth);
     });
   }
 
   profileChecks(authObj){
-    this.firebase.get('users', authObj.uid).then(profile => {
+    return this.firebase.get('users', authObj.uid).then(profile => {
       if(!profile) {
-        this.createUser(authObj);
+        return this.createUser(authObj);
+      } else {
+        return profile;
       }
     });
   }
 
   getUser(){
-    return this.db.UserInfo;
+    return this.authObj;
   }
 
   createUser(authObject){
@@ -76,7 +79,7 @@ export class Auth {
 
     return this.firebase.set(profile, 'users', authObject.uid).then(res => {
       console.log('User profile successfully created', profile, res);
-      return res;
+      return profile;
     });
   }
 

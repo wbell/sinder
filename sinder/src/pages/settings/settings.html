@@ -14,5 +14,43 @@
 
 
 <ion-content padding>
+  <form [formGroup]="profile" (ngSubmit)="submitForm(profile.value)">
+
+    <ion-list>
+
+      <ion-item>
+        <img [src]="profile.controls['photoURL'].value || defaultPhoto">
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Photo URL</ion-label>
+        <ion-input type="url" [formControl]="profile.controls['photoURL']" clearInput="true"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Nickname</ion-label>
+        <ion-input type="text" [formControl]="profile.controls['nickName']" clearInput="true" placeholder="(e.g. {{randomNickname}})"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Full Name</ion-label>
+        <ion-input type="text" [formControl]="profile.controls['displayName']" disabled></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email Address</ion-label>
+        <ion-input type="email" [formControl]="profile.controls['email']" disabled></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <button type="submit" [disabled]="!profile.valid" ion-button block>Save</button>
+        <button type="button" (click)="confirmReset()" ion-button block color="danger" outline>Reset Google Defaults</button>
+        <br>
+        <button type="button" (click)="logout()" ion-button block color="light">Sign Out</button>
+      </ion-item>
+
+    </ion-list>
+
+  </form>
 
 </ion-content>

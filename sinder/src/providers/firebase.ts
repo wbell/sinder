@@ -19,7 +19,7 @@ export class Firebase {
   }
 
   initFirebase(){
-    firebase.initializeApp(config);
+    this.db().initializeApp(config);
     console.log('firebase initialized');
   }
 
@@ -28,7 +28,7 @@ export class Firebase {
   }
 
   getRef(path, id?){
-    const rootRef = firebase.database().ref();
+    const rootRef = this.db().database().ref();
     let ref = rootRef.child(path);
 
     if(id) ref = ref.child(id);
