@@ -10,7 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/wbell/sinder-ui.git"
   },
-  "author": "",
+  "author": {
+    "name": "Willie Bell",
+    "email": "willie.bell@pwc.com"
+  },
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/wbell/sinder-ui/issues"

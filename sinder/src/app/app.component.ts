@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ModalController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
 import { LoginPage } from '../pages/login/login';
 import { SettingsPage } from '../pages/settings/settings';
+import { AboutPage } from '../pages/about/about';
 
 import { Firebase } from '../providers/firebase';
 import { Auth } from '../providers/auth';
@@ -17,11 +16,13 @@ import { Auth } from '../providers/auth';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+  loggedIn: boolean;
+
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component?: any, action?: Function}>;
+  pages: Array<{title: string, component?: any, action?: Function, visible?: Function}>;
 
-  constructor(public platform: Platform, public firebase: Firebase, public auth: Auth) {
+  constructor(public platform: Platform, public firebase: Firebase, public auth: Auth, public modalCtrl: ModalController) {
     console.log('App Constructor');
 
     this.initializeApp();
@@ -29,13 +30,15 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Login', component: LoginPage },
-      { title: 'Settings', component: SettingsPage },
-      { title: 'Page One', component: Page1 },
-      { title: 'Page Two', component: Page2 },
+      { title: 'Login', component: LoginPage, visible: ()=>{ return !this.loggedIn} },
+      { title: 'Settings', component: SettingsPage, visible: ()=>{ return this.loggedIn} },
+      { title: 'About', action: (page)=>{
+        let modal = this.modalCtrl.create(AboutPage);
+        modal.present();
+      }},
       { title: 'Log Out', action: (page) =>{
         this.auth.signOut();
-      }}
+      }, visible: ()=>{ return this.loggedIn}}
     ];
 
   }
@@ -67,9 +70,11 @@ export class MyApp {
 
       if (user) {
         // User is signed in.
-        this.nav.setRoot(Page1);
+        this.nav.setRoot(SettingsPage);
+        this.loggedIn = true;
       } else {
         this.nav.setRoot(LoginPage);
+        this.loggedIn = false;
       }
     });
   }
