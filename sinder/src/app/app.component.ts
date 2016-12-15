@@ -5,6 +5,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { LoginPage } from '../pages/login/login';
 import { SettingsPage } from '../pages/settings/settings';
 import { AboutPage } from '../pages/about/about';
+import { TeamsPage } from '../pages/teams/teams';
 
 import { Firebase } from '../providers/firebase';
 import { Auth } from '../providers/auth';
@@ -31,6 +32,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Login', component: LoginPage, visible: ()=>{ return !this.loggedIn} },
+      { title: 'Teams', component: TeamsPage, visible: ()=>{ return this.loggedIn} },
       { title: 'Settings', component: SettingsPage, visible: ()=>{ return this.loggedIn} },
       { title: 'About', action: (page)=>{
         let modal = this.modalCtrl.create(AboutPage);
@@ -70,7 +72,7 @@ export class MyApp {
 
       if (user) {
         // User is signed in.
-        this.nav.setRoot(SettingsPage);
+        this.nav.setRoot(TeamsPage);
         this.loggedIn = true;
       } else {
         this.nav.setRoot(LoginPage);

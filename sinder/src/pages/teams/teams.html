@@ -1,0 +1,31 @@
+<!--
+  Generated template for the Teams page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Teams</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-fab top right edge>
+    <button ion-fab (click)="addTeam()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+  <div [hidden]="teamsList.length" class="no-teams">
+    <h2>No Teams Yet!</h2>
+    <p>You are not on any teams yet.</p>
+    <p>Use the "+" to start building your own team!</p>
+  </div>
+  {{teamsList | json}}
+</ion-content>
