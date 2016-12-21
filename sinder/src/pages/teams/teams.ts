@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { Firebase } from '../../providers/firebase';
+import { TeamBuilderPage } from '../team-builder/team-builder';
 
 /*
   Generated class for the Teams page.
@@ -39,8 +40,8 @@ export class TeamsPage {
     });
   }
 
-  addTeam(){
-    // this.navCtrl.push(TeamBuilderPage);
+  addTeam(teamId){
+    this.navCtrl.push(TeamBuilderPage, {teamId: teamId});
   }
 
   ionViewDidLoad() {

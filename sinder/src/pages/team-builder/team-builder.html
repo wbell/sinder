@@ -1,0 +1,60 @@
+<!--
+  Generated template for the TeamBuilder page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Team Builder</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="team" (ngSubmit)="submitForm(team.value)">
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked>Team Name</ion-label>
+        <ion-input type="text" placeholder="(e.g. Mobile Devs)" [formControl]="team.controls['name']"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Owner</ion-label>
+        <ion-input type="text" [formControl]="team.controls['ownerName']" readonly disabled></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Members</ion-label>
+        <div item-content class="member-chips">
+          <p [hidden]="team.controls['members'].value.length">No members yet</p>
+          <div [hidden]="!team.controls['members'].value.length">
+            <ion-chip *ngFor="let chip of team.controls['members'].value">
+              <ion-label>{{chip.displayName}}</ion-label>
+              <button [hidden]="team.controls['owner'].value !== authObj.uid" ion-button clear color="primary" (click)="deleteMember(chip)">
+                <ion-icon name="close-circle"></ion-icon>
+              </button>
+            </ion-chip>
+          </div>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Tags</ion-label>
+        <ion-select [formControl]="team.controls['tags']" multiple="true">
+          <ion-option *ngFor="let tag of tags | keys" [value]="tag.key">{{tag.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <button type="submit" [disabled]="!team.valid" ion-button block>Continue</button>
+      </ion-item>
+
+
+
+    </ion-list>
+  </form>
+</ion-content>

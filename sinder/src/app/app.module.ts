@@ -7,11 +7,15 @@ import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { LoginPage } from '../pages/login/login';
 import { TeamsPage } from '../pages/teams/teams';
+import { TeamBuilderPage } from '../pages/team-builder/team-builder';
 import { SettingsPage } from '../pages/settings/settings';
 
 // providers
 import { Auth } from '../providers/auth';
 import { Firebase } from '../providers/firebase';
+
+// pipes
+import { KeysPipe } from '../pipes/keys';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,9 @@ import { Firebase } from '../providers/firebase';
     AboutPage,
     LoginPage,
     SettingsPage,
-    TeamsPage
+    TeamsPage,
+    TeamBuilderPage,
+    KeysPipe
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -32,7 +38,8 @@ import { Firebase } from '../providers/firebase';
     AboutPage,
     LoginPage,
     SettingsPage,
-    TeamsPage
+    TeamsPage,
+    TeamBuilderPage
   ],
   providers: [
     Firebase,
