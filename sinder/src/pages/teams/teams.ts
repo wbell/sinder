@@ -20,17 +20,29 @@ export class TeamsPage {
 
   teamsList: Array<any> = [];
 
+  tags: any;
+
   constructor(
     public navCtrl: NavController,
     public auth: Auth,
     public firebase: Firebase,
   ) {
     this.authObj = auth.getUser();
-    this.getTeams(this.authObj.uid);
+
+  }
+
+  getTags(){
+    return this.firebase.get('tags').then(tags => {
+      // console.log('got tags', tags);
+      this.tags = tags;
+    });
   }
 
   getTeams(uid){
     this.firebase.get('teams').then(teamObj => {
+
+      console.log('teamObj', teamObj);
+
       let teamsList = [];
       for(let key in teamObj){
         let team = teamObj[key];
@@ -68,6 +80,12 @@ export class TeamsPage {
 
   ionViewDidLoad() {
     console.log('Hello TeamsPage Page');
+  }
+
+  ionViewDidEnter(){
+    this.getTags().then(()=>{
+      this.getTeams(this.authObj.uid);
+    });
   }
 
 }

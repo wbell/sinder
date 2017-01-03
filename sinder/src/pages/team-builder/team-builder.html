@@ -50,11 +50,14 @@
       </ion-item>
 
       <ion-item>
-        <button type="submit" [disabled]="!team.valid" ion-button block>Continue</button>
+        <button ion-button block type="button" (click)="launchMemberFinder(team)">Add Team Members</button>
       </ion-item>
-
 
 
     </ion-list>
   </form>
 </ion-content>
+
+<ion-footer>
+  <button ion-button block type="button" [disabled]="!team.valid" (click)="submitForm(team.value)">Save</button>
+</ion-footer>

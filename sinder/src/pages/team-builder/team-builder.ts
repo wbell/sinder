@@ -20,7 +20,7 @@ export class TeamBuilderPage {
 
   authObj: any;
 
-  tags: Array<string>;
+  tags: any;
 
   constructor(
     public params: NavParams,
@@ -38,7 +38,7 @@ export class TeamBuilderPage {
 
   getTags(){
     this.firebase.get('tags').then(tags => {
-      // console.log('got tags', tags);
+      console.log('got tags', tags);
       this.tags = tags;
     });
   }
@@ -83,7 +83,7 @@ export class TeamBuilderPage {
       this.team = this.fb.group({
         name: [team.name, Validators.required],
         ownerName: [{value: owner.displayName, disabled: true}],
-        owner: [{value: team.owner}, Validators.required],
+        owner: [team.owner, Validators.required],
         tags: [team.tags],
         members: [members]
       });
@@ -129,8 +129,8 @@ export class TeamBuilderPage {
 
   }
 
-  launchMemberFinder(){
-    console.log('launch member finder modal for current team');
+  launchMemberFinder(team){
+    console.log('launch member finder modal for current team', team);
   }
 
   ionViewDidLoad() {
