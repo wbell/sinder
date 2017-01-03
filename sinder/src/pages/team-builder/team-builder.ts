@@ -38,7 +38,7 @@ export class TeamBuilderPage {
 
   getTags(){
     this.firebase.get('tags').then(tags => {
-      console.log('got tags', tags);
+      // console.log('got tags', tags);
       this.tags = tags;
     });
   }
@@ -66,11 +66,12 @@ export class TeamBuilderPage {
   }
 
   populateWithTeamInfo(teamId){
+    console.log('populateWithTeamInfo', teamId);
     this.firebase.get('teams', teamId).then(team => {
       const promises = [
         team,
         this.firebase.get('users', team.owner),
-        this.firebase.getArray('users', team.members)
+        this.firebase.getArray('users', team.members || [])
       ];
 
       return Promise.all(promises);
@@ -99,7 +100,7 @@ export class TeamBuilderPage {
         ownerName: [{value: profile.displayName, disabled: true}],
         owner: [this.authObj.uid, Validators.required],
         tags: [[]],
-        members: [[{displayName:"Michael Myers"}, {displayName:"Johnny Depp"}, {displayName:"Steven Segal"}]]
+        members: [[]]
       });
 
       console.log('team', this.team);
@@ -110,6 +111,26 @@ export class TeamBuilderPage {
   submitForm(formValue){
     console.log('team form value', formValue);
 
+    let teamId = this.params.get('teamId');
+
+    if(!teamId){
+      let teamRef = this.firebase.getRef('teams').push();
+
+      console.log('teamRef', teamRef);
+
+      teamId = teamRef.key;
+    }
+
+    this.firebase.set(formValue, 'teams', teamId).then(res =>{
+      console.log('team created/updated successfully', res);
+
+      this.launchMemberFinder(teamId);
+    });
+
+  }
+
+  launchMemberFinder(teamId){
+    console.log('go to member finder page for team:', teamId);
   }
 
   ionViewDidLoad() {

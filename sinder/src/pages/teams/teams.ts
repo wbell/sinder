@@ -30,18 +30,34 @@ export class TeamsPage {
   }
 
   getTeams(uid){
-    this.firebase.get('users', uid).then(profile => {
-      const teamIds = profile.teams || [];
-      return teamIds;
-    }).then(teamIds => {
-      return this.firebase.getArray(teamIds, 'teams');
-    }).then(teamsList=>{
+    this.firebase.get('teams').then(teamObj => {
+      let teamsList = [];
+      for(let key in teamObj){
+        let team = teamObj[key];
+        if(
+          (team.owner === uid ||
+          (team.members && team.members.indexOf(uid) > -1)) &&
+          !team.inactive
+        ) {
+          team.id = key;
+          team.isOwner = team.owner === uid;
+          team.members = team.members || [];
+          team.tags = team.tags || [];
+          teamsList.push(team);
+        }
+      }
+      console.log('teamsList', teamsList);
       this.teamsList = teamsList;
     });
   }
 
-  addTeam(teamId){
+  addTeam(teamId, event){
+    if(event) event.stopPropagation();
     this.navCtrl.push(TeamBuilderPage, {teamId: teamId});
+  }
+
+  goToChat(teamId){
+    console.log('Chat for team #', teamId);
   }
 
   ionViewDidLoad() {
