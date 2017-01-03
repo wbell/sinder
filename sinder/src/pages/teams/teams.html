@@ -29,19 +29,24 @@
   </div>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let team of teamsList" (click)="goToChat(team)">
+    <ion-item-sliding *ngFor="let team of teamsList" (click)="goToChat(team, slidingItem)" #slidingItem>
       <ion-item>
         <h2>{{team.name}}</h2>
+        <h3>
+          <span class="tag" *ngFor="let tag of team.tags">
+            #{{tags[tag]}}
+          </span>
+        </h3>
         <p [hidden]="team.members.length">(No members yet)</p>
         <p [hidden]="!team.members.length">
           {{team.members.length}} Members
         </p>
       </ion-item>
-      <ion-item-options side="right">
-        <button ion-button icon-only (click)="addTeam(team.id, $event)">
+      <ion-item-options side="right" [hidden]="!team.isOwner">
+        <button ion-button icon-only (click)="addTeam(team.id, $event, slidingItem)">
           <ion-icon name="create"></ion-icon>
         </button>
-        <button ion-button icon-only color="danger" (click)="deleteTeam(team.id, $event)">
+        <button ion-button icon-only color="danger" (click)="presentConfirm(team, $event)">
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>

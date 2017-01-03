@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ItemSliding, AlertController, ToastController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { Firebase } from '../../providers/firebase';
 import { TeamBuilderPage } from '../team-builder/team-builder';
@@ -24,8 +24,10 @@ export class TeamsPage {
 
   constructor(
     public navCtrl: NavController,
+    public alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     public auth: Auth,
-    public firebase: Firebase,
+    public firebase: Firebase
   ) {
     this.authObj = auth.getUser();
 
@@ -63,18 +65,65 @@ export class TeamsPage {
     });
   }
 
-  addTeam(teamId, event?){
+  addTeam(teamId, event?, slidingItem?: ItemSliding){
     if(event) event.stopPropagation();
+    if(slidingItem) slidingItem.close();
     this.navCtrl.push(TeamBuilderPage, {teamId: teamId});
   }
 
-  goToChat(team){
+  deleteTeam(team){
+    console.log('Actually delete this team', team);
+    this.firebase.update({inactive: true}, 'teams', team.id).then(res =>{
+      console.log('team successfully deleted', res);
+      this.ionViewDidEnter();
+      this.presentToast('"'+team.name+'" was successfully deleted.');
+    });
+  }
+
+  presentToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.present();
+  }
+
+  presentConfirm(team, event?) {
+    if(event) event.stopPropagation();
+
+    let alert = this.alertCtrl.create({
+      title: 'Confirm Delete',
+      message: 'Are you sure you want to delete "'+team.name+'"?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.deleteTeam(team);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  goToChat(team, slidingItem?: ItemSliding){
+
+    if(slidingItem) slidingItem.close();
 
     if(team.members.length){
       console.log('Chat for team #', team.id);
     } else {
       console.warn('Must have team members before chat is available');
-      this.addTeam(team.id);
+      if(team.isOwner) this.addTeam(team.id);
     }
   }
 

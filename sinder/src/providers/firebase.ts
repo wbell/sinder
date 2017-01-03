@@ -49,7 +49,10 @@ export class Firebase {
   getArray(path, ids, options?){
     let promises = [];
     ids.forEach(id=>{
-      promises.push(this.get(path, id));
+      promises.push(this.get(path, id).then(val =>{
+        val.id = val.id || id;
+        return val;
+      }));
     });
 
     return Promise.all(promises);
