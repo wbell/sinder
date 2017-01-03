@@ -51,13 +51,19 @@ export class TeamsPage {
     });
   }
 
-  addTeam(teamId, event){
+  addTeam(teamId, event?){
     if(event) event.stopPropagation();
     this.navCtrl.push(TeamBuilderPage, {teamId: teamId});
   }
 
-  goToChat(teamId){
-    console.log('Chat for team #', teamId);
+  goToChat(team){
+
+    if(team.members.length){
+      console.log('Chat for team #', team.id);
+    } else {
+      console.warn('Must have team members before chat is available');
+      this.addTeam(team.id);
+    }
   }
 
   ionViewDidLoad() {

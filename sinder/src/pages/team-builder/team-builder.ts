@@ -124,13 +124,13 @@ export class TeamBuilderPage {
     this.firebase.set(formValue, 'teams', teamId).then(res =>{
       console.log('team created/updated successfully', res);
 
-      this.launchMemberFinder(teamId);
+      this.navCtrl.pop();
     });
 
   }
 
-  launchMemberFinder(teamId){
-    console.log('go to member finder page for team:', teamId);
+  launchMemberFinder(){
+    console.log('launch member finder modal for current team');
   }
 
   ionViewDidLoad() {

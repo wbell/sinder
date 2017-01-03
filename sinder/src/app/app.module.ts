@@ -9,6 +9,7 @@ import { LoginPage } from '../pages/login/login';
 import { TeamsPage } from '../pages/teams/teams';
 import { TeamBuilderPage } from '../pages/team-builder/team-builder';
 import { SettingsPage } from '../pages/settings/settings';
+import { TeamChatPage } from '../pages/team-chat/team-chat';
 
 // providers
 import { Auth } from '../providers/auth';
@@ -25,6 +26,7 @@ import { KeysPipe } from '../pipes/keys';
     SettingsPage,
     TeamsPage,
     TeamBuilderPage,
+    TeamChatPage,
     KeysPipe
   ],
   imports: [
@@ -39,7 +41,8 @@ import { KeysPipe } from '../pipes/keys';
     LoginPage,
     SettingsPage,
     TeamsPage,
-    TeamBuilderPage
+    TeamBuilderPage,
+    TeamChatPage
   ],
   providers: [
     Firebase,
