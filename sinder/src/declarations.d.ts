@@ -12,9 +12,4 @@
   https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html
 */
 
-declare module '*.json' {
-  var json: any;
-  export default json;
-}
-
 declare module '*';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import firebase from 'firebase';
-import config from '../app/firebase.config';
+import config from '../app/firebase.config.json';
 
 /*
   Generated class for the Firebase provider.
@@ -68,6 +68,12 @@ export class Firebase {
     const ref = this.getRef(path, id);
 
     return ref.update(params);
+  }
+
+  remove(path, id?){
+    const ref = this.getRef(path, id);
+
+    return ref.remove();
   }
 
 }

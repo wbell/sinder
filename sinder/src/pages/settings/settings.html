@@ -46,6 +46,18 @@
       </ion-item>
 
       <ion-item>
+        <ion-label stacked>Tags</ion-label>
+        <ion-select [formControl]="profile.controls['tags']" multiple="true">
+          <ion-option *ngFor="let tag of tags | keys" [value]="tag.key">{{tag.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Bio</ion-label>
+        <ion-textarea [formControl]="profile.controls['bio']" maxlength="140" placeholder="You have 140 characters..."></ion-textarea>
+      </ion-item>
+
+      <ion-item>
         <button type="submit" [disabled]="!profile.valid" ion-button block>Save</button>
         <button type="button" (click)="confirmReset()" ion-button block color="danger" outline>Reset Google Defaults</button>
         <br>
@@ -55,5 +67,36 @@
     </ion-list>
 
   </form>
+
+  <ion-list [hidden]="!rawProfile.admin">
+
+    <ion-list-header>
+      Admin Panel
+    </ion-list-header>
+
+    <ion-item-divider>
+      Create Employees
+    </ion-item-divider>
+
+    <ion-item>
+      <ion-label stacked>Number of Employees</ion-label>
+      <ion-select [(ngModel)]="numEmployees">
+        <ion-option *ngFor="let opt of numEmployeeOptions" [value]="opt">{{opt}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Tags</ion-label>
+      <ion-select [(ngModel)]="employeeTags" multiple="true">
+        <ion-option *ngFor="let tag of tags | keys" [value]="tag.key">{{tag.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <button type="button" ion-button block (click)="employeeConfirm()">Create Employees</button>
+      <button type="button" (click)="confirmEmployeeClear()" ion-button block color="danger">Clear all generated employees</button>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>
