@@ -29,7 +29,7 @@
   </div>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let team of teamsList" (click)="goToChat(team, slidingItem)" #slidingItem>
+    <ion-item-sliding *ngFor="let team of teamsList" (tap)="goToChat(team, slidingItem)" #slidingItem>
       <ion-item>
         <h2>{{team.name}}</h2>
         <h3>

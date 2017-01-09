@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { SwingModule } from 'angular2-swing';
 
 // pages
 import { AboutPage } from '../pages/about/about';
@@ -10,6 +11,7 @@ import { TeamsPage } from '../pages/teams/teams';
 import { TeamBuilderPage } from '../pages/team-builder/team-builder';
 import { SettingsPage } from '../pages/settings/settings';
 import { TeamChatPage } from '../pages/team-chat/team-chat';
+import { MemberSwiperPage } from '../pages/member-swiper/member-swiper';
 
 // providers
 import { Auth } from '../providers/auth';
@@ -27,12 +29,14 @@ import { KeysPipe } from '../pipes/keys';
     TeamsPage,
     TeamBuilderPage,
     TeamChatPage,
+    MemberSwiperPage,
     KeysPipe
   ],
   imports: [
     IonicModule.forRoot(MyApp),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SwingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,7 +46,8 @@ import { KeysPipe } from '../pipes/keys';
     SettingsPage,
     TeamsPage,
     TeamBuilderPage,
-    TeamChatPage
+    TeamChatPage,
+    MemberSwiperPage
   ],
   providers: [
     Firebase,

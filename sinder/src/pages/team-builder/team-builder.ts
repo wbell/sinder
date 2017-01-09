@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Auth } from '../../providers/auth';
 import { Firebase } from '../../providers/firebase';
+import { MemberSwiperPage } from '../member-swiper/member-swiper';
 
 /*
   Generated class for the TeamBuilder page.
@@ -25,6 +26,7 @@ export class TeamBuilderPage {
   constructor(
     public params: NavParams,
     public navCtrl: NavController,
+    public modalCtrl: ModalController,
     public auth: Auth,
     public firebase: Firebase,
     public fb: FormBuilder
@@ -131,6 +133,14 @@ export class TeamBuilderPage {
 
   launchMemberFinder(team){
     console.log('launch member finder modal for current team', team);
+
+    let memberModal = this.modalCtrl.create(MemberSwiperPage, { team: team });
+
+    memberModal.onDidDismiss(data => {
+      console.log('data from modal', data);
+    });
+
+    memberModal.present();
   }
 
   ionViewDidLoad() {
