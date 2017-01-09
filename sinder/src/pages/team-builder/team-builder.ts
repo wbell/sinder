@@ -123,6 +123,11 @@ export class TeamBuilderPage {
       teamId = teamRef.key;
     }
 
+    // id-ify the members
+    formValue.members = formValue.members.map((mem)=>{
+      return mem.id;
+    });
+
     this.firebase.set(formValue, 'teams', teamId).then(res =>{
       console.log('team created/updated successfully', res);
 
@@ -138,6 +143,9 @@ export class TeamBuilderPage {
 
     memberModal.onDidDismiss(data => {
       console.log('data from modal', data);
+      this.team.patchValue({
+        members: this.team.controls['members'].value.concat(data)
+      });
     });
 
     memberModal.present();

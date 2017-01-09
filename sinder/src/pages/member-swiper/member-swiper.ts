@@ -60,7 +60,7 @@ export class MemberSwiperPage {
 
   getEmployeeCards(){
     let team = this.params.get('team');
-    let currentMembers = (team.members || []).concat([team.owner]);
+    let currentMembers = (team.members.map(mem => mem.id) || []).concat([team.owner]);
     let unsorted = [];
 
     console.log('currentMembers', currentMembers, team);
