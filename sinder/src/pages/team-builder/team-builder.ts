@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Auth } from '../../providers/auth';
 import { Firebase } from '../../providers/firebase';
 import { MemberSwiperPage } from '../member-swiper/member-swiper';
+import _without from 'lodash/without';
 
 /*
   Generated class for the TeamBuilder page.
@@ -108,6 +109,13 @@ export class TeamBuilderPage {
       console.log('team', this.team);
 
     });
+  }
+
+  deleteMember(member){
+    let currentMembers = this.team.controls['members'].value;
+    let filtered = _without(currentMembers, member);
+
+    this.team.patchValue({members: filtered});
   }
 
   submitForm(formValue){
