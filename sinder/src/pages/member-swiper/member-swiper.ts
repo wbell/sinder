@@ -95,7 +95,7 @@ export class MemberSwiperPage {
       this.cards = _shuffle(unsorted);
     } else {
 
-      let sorted = _sortBy(unsorted, [card =>{
+      let sorted = _sortBy(_shuffle(unsorted), [card =>{
         let matchingTags = _intersection(chosenTags, card.tags || []);
         return matchingTags.length;
       }]);
