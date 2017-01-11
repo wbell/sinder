@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ToastController, Content } from 'ionic-angular';
+import { Firebase } from '../../providers/firebase';
+import { Auth } from '../../providers/auth';
 
 /*
   Generated class for the TeamChat page.
@@ -12,11 +14,158 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'team-chat.html'
 })
 export class TeamChatPage {
+  @ViewChild(Content) content1: Content;
 
-  constructor(public navCtrl: NavController) {}
+  authObj: any;
+
+  user: any = {admin: false};
+
+  team: any = {
+    members: []
+  };
+
+  chat: any;
+
+  message: string = '';
+
+  chatRef: firebase.database.Reference;
+
+  chatters: any;
+
+  constructor(
+    public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public params: NavParams,
+    public firebase: Firebase,
+    public auth: Auth
+  ) {
+    this.authObj = auth.getUser();
+    this.team = params.get('team');
+    this.chatRef = firebase.getRef('chats', this.team.id);
+    this.getUser(this.authObj.uid);
+  }
+
+  getChat(){
+    let team = this.team;
+    let teamChat = null;
+
+    this.firebase.get('chats', team.id).then(chat=>{
+      console.log('this.chatRef', this.chatRef);
+      console.log('chat', chat);
+
+      teamChat = chat || {};
+
+      return teamChat;
+    }).then(chat=>{
+      let chatters = [];
+      for(let m in chat){
+        if(chatters.indexOf(chat[m].by)===-1){
+          chatters.push(chat[m].by);
+        }
+      }
+
+      return this.firebase.getArray('users', chatters);
+    }).then(chatters=>{
+      let chatterObj = {};
+
+      chatters.forEach(chatter=>{
+        chatterObj[chatter.id] = chatter;
+      });
+
+      this.chatters = chatterObj;
+      this.chat = teamChat;
+
+      console.log('this.chatters', this.chatters);
+      console.log('this.chat', this.chat);
+
+      this.attachRefListeners();
+    });
+
+  }
+
+  sendMessage(message){
+    let msg = {
+      by: this.authObj.uid,
+      message: message,
+      timestamp: Date.now()
+    };
+
+    console.log('msg posted', msg);
+
+    this.chatRef.push(msg).then(res=>{
+      console.log('message posted successfully', res);
+      this.message = '';
+      this.scrollToBottom();
+    })
+    .catch(err=>{
+      this.presentToast(err.message);
+    });
+  }
+
+  attachRefListeners(){
+    this.chatRef.on('child_added', (childSnapshot, prevChildKey)=>{
+      console.log('CHILD ADDED', childSnapshot, prevChildKey);
+      let key = childSnapshot.key;
+      let val = childSnapshot.val();
+
+      this.addToChatters(val.by).then(res=>{
+        this.chat[key] = val;
+        this.scrollToBottom();
+      });
+
+    });
+
+    this.chatRef.on('child_removed', oldSnapshot=>{
+      console.log('CHILD REMOVED', oldSnapshot);
+      let key = oldSnapshot.key;
+
+      delete this.chat[key];
+
+      this.scrollToBottom();
+    });
+  }
+
+  addToChatters(userId){
+    if(this.chatters[userId]){
+      return Promise.resolve(true);
+    } else {
+      return this.firebase.get('users', userId).then(user=>{
+        this.chatters[userId] = user;
+        return user;
+      });
+    }
+  }
+
+  presentToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.present();
+  }
+
+  getUser(uid){
+    this.firebase.get('users', uid).then(user=>{
+      this.user = user;
+    });
+  }
+
+  scrollToBottom(duration?: number){
+    this.content1.scrollToBottom(duration);
+  }
 
   ionViewDidLoad() {
     console.log('Hello TeamChatPage Page');
+  }
+
+  ionViewDidEnter(){
+    this.getChat();
+  }
+
+  ionViewWillLeave(){
+    this.chatRef.off();
   }
 
 }

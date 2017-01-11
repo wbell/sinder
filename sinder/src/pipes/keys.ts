@@ -7,7 +7,8 @@ import { Injectable, Pipe } from '@angular/core';
   Angular 2 Pipes.
 */
 @Pipe({
-  name: 'keys'
+  name: 'keys',
+  pure: false
 })
 @Injectable()
 export class KeysPipe {

@@ -41,7 +41,9 @@ export class Firebase {
 
     if(!options){
       return ref.once('value').then(data => {
-        return data.val();
+        let val = data.val();
+        // if(val && (val.id || id)) val.id = val.id || id;
+        return val;
       });
     }
   }

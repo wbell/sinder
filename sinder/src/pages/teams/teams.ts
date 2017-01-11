@@ -3,6 +3,7 @@ import { NavController, ItemSliding, AlertController, ToastController } from 'io
 import { Auth } from '../../providers/auth';
 import { Firebase } from '../../providers/firebase';
 import { TeamBuilderPage } from '../team-builder/team-builder';
+import { TeamChatPage } from '../team-chat/team-chat';
 
 /*
   Generated class for the Teams page.
@@ -120,7 +121,7 @@ export class TeamsPage {
     if(slidingItem) slidingItem.close();
 
     if(team.members.length){
-      console.log('Chat for team #', team.id);
+      this.navCtrl.push(TeamChatPage, {team: team});
     } else {
       console.warn('Must have team members before chat is available');
       if(team.isOwner) this.addTeam(team.id);

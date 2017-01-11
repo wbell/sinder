@@ -5,14 +5,42 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>team-chat</ion-title>
+    <ion-title>{{team.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="primary" (click)="presentPopover">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content #content1>
+  <ion-list>
+    <ion-item [hidden]="(chat | keys).length">
+      Let's get this party started!
+    </ion-item>
+    <ion-item *ngFor="let m of chat | keys">
+      <ion-avatar item-left>
+        <img [src]="chatters[m.value.by].photoURL" [alt]="chatters[m.value.by].displayName">
+      </ion-avatar>
+      <p>{{m.value.message}}</p>
+      <p>
+        <small>{{chatters[m.value.by].displayName}} &bull;
+        <span [title]="m.value.timestamp | date:'medium'">{{m.value.timestamp | date:'EEE, h:mm a'}}</span></small>
+      </p>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+  <form (submit)="sendMessage(message)">
+    <ion-item>
+      <ion-input start type="text" placeholder="Message..." [(ngModel)]="message" [ngModelOptions]="{standalone: true}"></ion-input>
+      <button item-right ion-button [disabled]="!message.length" color="primary" type="submit">Send</button>
+    </ion-item>
+  </form>
+  </ion-toolbar>
+</ion-footer>
