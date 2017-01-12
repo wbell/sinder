@@ -97,7 +97,7 @@ export class SettingsPage {
         displayName: [{value: profile.displayName, disabled: true}, Validators.required],
         email: [{value: profile.email, disabled: true}, Validators.required],
         nickName: [profile.nickName, null],
-        tags: [profile.tags, null] || [[], null],
+        tags: [profile.tags || [], profile.employee ? Validators.minLength(1) : null],
         bio: [profile.bio, null]
       });
 

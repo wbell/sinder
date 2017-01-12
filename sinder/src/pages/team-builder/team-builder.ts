@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Auth } from '../../providers/auth';
 import { Firebase } from '../../providers/firebase';
 import { MemberSwiperPage } from '../member-swiper/member-swiper';
+import { ArrayMinLength } from '../../validators/array-length';
 import _without from 'lodash/without';
 
 /*
@@ -87,7 +88,7 @@ export class TeamBuilderPage {
         name: [team.name, Validators.required],
         ownerName: [{value: owner.displayName, disabled: true}],
         owner: [team.owner, Validators.required],
-        tags: [team.tags],
+        tags: [team.tags, ArrayMinLength(1)],
         members: [members]
       });
 
@@ -102,7 +103,7 @@ export class TeamBuilderPage {
         name: ['', Validators.required],
         ownerName: [{value: profile.displayName, disabled: true}],
         owner: [this.authObj.uid, Validators.required],
-        tags: [[]],
+        tags: [[], ArrayMinLength(1)],
         members: [[]]
       });
 
