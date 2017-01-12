@@ -51,7 +51,17 @@ export class SettingsPage {
 
     this.authObj = auth.getUser();
 
-    // build the form
+    // instantiate blank
+    this.profile = this.fb.group({
+      photoURL: null,
+      displayName: null,
+      nickName: null,
+      email: null,
+      tags: null,
+      bio: null,
+      staffLevel: null
+    });
+
     this.buildForm();
 
     this.getTags();
@@ -74,34 +84,27 @@ export class SettingsPage {
 
   buildForm(){
 
-    // instantiate blank
-    this.profile = this.fb.group({
-      photoURL: null,
-      displayName: null,
-      nickName: null,
-      email: null,
-      tags: [[]],
-      bio: null,
-      staffLevel: null
-    });
-
     // get profile
-    this.auth.profileChecks(this.authObj).then(profile=>{
+    this.firebase.get('users', this.authObj.uid).then(profile=>{
 
       this.rawProfile = profile;
+
+      console.log('raw profile', profile);
 
       this.profile = this.fb.group({
         photoURL: [profile.photoURL, profile.employee ? Validators.required : null],
         staffLevel: [profile.staffLevel, profile.employee ? Validators.required : null],
         displayName: [{value: profile.displayName, disabled: true}, Validators.required],
         email: [{value: profile.email, disabled: true}, Validators.required],
-        nickName: profile.nickName,
-        tags: profile.tags || [[]],
-        bio: profile.bio
+        nickName: [profile.nickName, null],
+        tags: [profile.tags, null] || [[], null],
+        bio: [profile.bio, null]
       });
 
       console.log('controls', this.profile.controls);
 
+    }).catch(err=>{
+      console.log('profile fetch err', err);
     });
   }
 

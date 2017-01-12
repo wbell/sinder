@@ -28,6 +28,13 @@
       </ion-item>
 
       <ion-item>
+        <ion-label stacked>Tags</ion-label>
+        <ion-select [formControl]="team.controls['tags']" multiple="true">
+          <ion-option *ngFor="let tag of tags | keys" [value]="tag.key">{{tag.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
         <ion-label stacked>Members</ion-label>
         <div item-content class="member-chips">
           <p [hidden]="team.controls['members'].value.length">No members yet</p>
@@ -44,13 +51,6 @@
 
       <ion-item>
         <button ion-button block outline color="primary" type="button" (click)="launchMemberFinder(team.value)">Add Team Members</button>
-      </ion-item>
-
-      <ion-item>
-        <ion-label stacked>Tags</ion-label>
-        <ion-select [formControl]="team.controls['tags']" multiple="true">
-          <ion-option *ngFor="let tag of tags | keys" [value]="tag.key">{{tag.value}}</ion-option>
-        </ion-select>
       </ion-item>
 
 

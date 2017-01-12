@@ -39,7 +39,7 @@
         </h3>
         <p [hidden]="team.members.length">(No members yet)</p>
         <p [hidden]="!team.members.length">
-          {{team.members.length}} Members
+          {{(team.members.length+1)}} Members
         </p>
       </ion-item>
       <ion-item-options side="right" [hidden]="!team.isOwner">
