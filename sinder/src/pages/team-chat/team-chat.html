@@ -21,16 +21,23 @@
     <ion-item [hidden]="(chat | keys).length">
       Let's get this party started!
     </ion-item>
-    <ion-item *ngFor="let m of chat | keys">
-      <ion-avatar item-left>
-        <img [src]="chatters[m.value.by].photoURL" [alt]="chatters[m.value.by].displayName">
-      </ion-avatar>
-      <p>{{m.value.message}}</p>
-      <p>
-        <small>{{chatters[m.value.by].displayName}} &bull;
-        <span [title]="m.value.timestamp | date:'medium'">{{m.value.timestamp | date:'EEE, h:mm a'}}</span></small>
-      </p>
-    </ion-item>
+    <ion-item-sliding *ngFor="let m of chat | keys">
+      <ion-item>
+        <ion-avatar item-left>
+          <img [src]="chatters[m.value.by].photoURL" [alt]="chatters[m.value.by].displayName">
+        </ion-avatar>
+        <p>{{m.value.message}}</p>
+        <p>
+          <small>{{chatters[m.value.by].displayName}} &bull;
+          <span [title]="m.value.timestamp | date:'medium'">{{m.value.timestamp | date:'EEE, h:mm a'}}</span></small>
+        </p>
+      </ion-item>
+      <ion-item-options side="right" [hidden]="!user.admin">
+        <button ion-button icon-only color="danger" (click)="deleteMessage(m.key)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
 

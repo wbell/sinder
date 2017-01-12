@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ToastController, Content } from 'ionic-angular';
 import { Firebase } from '../../providers/firebase';
 import { Auth } from '../../providers/auth';
+import _omit from 'lodash/omit';
 
 /*
   Generated class for the TeamChat page.
@@ -109,7 +110,9 @@ export class TeamChatPage {
       let val = childSnapshot.val();
 
       this.addToChatters(val.by).then(res=>{
-        this.chat[key] = val;
+        let mergeObj = {};
+        mergeObj[key] = val;
+        this.chat = Object.assign({}, this.chat, mergeObj);
         this.scrollToBottom();
       });
 
@@ -119,9 +122,7 @@ export class TeamChatPage {
       console.log('CHILD REMOVED', oldSnapshot);
       let key = oldSnapshot.key;
 
-      delete this.chat[key];
-
-      this.scrollToBottom();
+      this.chat = _omit(this.chat, key);
     });
   }
 
@@ -134,6 +135,14 @@ export class TeamChatPage {
         return user;
       });
     }
+  }
+
+  deleteMessage(messageId){
+    let ref = this.chatRef.child(messageId);
+
+    ref.remove().then(()=>{
+      console.log(messageId+' removed');
+    });
   }
 
   presentToast(message) {
@@ -149,6 +158,7 @@ export class TeamChatPage {
   getUser(uid){
     this.firebase.get('users', uid).then(user=>{
       this.user = user;
+      console.log('this.user', this.user);
     });
   }
 
