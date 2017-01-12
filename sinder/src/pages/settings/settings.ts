@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, AlertController, ToastController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { Firebase } from '../../providers/firebase';
+import { ArrayMinLength } from '../../validators/array-length';
 import SillyName from 'sillyname';
 import faker from 'faker';
 import _sample from 'lodash/sample';
@@ -97,7 +98,7 @@ export class SettingsPage {
         displayName: [{value: profile.displayName, disabled: true}, Validators.required],
         email: [{value: profile.email, disabled: true}, Validators.required],
         nickName: [profile.nickName, null],
-        tags: [profile.tags || [], profile.employee ? Validators.minLength(1) : null],
+        tags: [profile.tags || [], profile.employee ? ArrayMinLength(1) : null],
         bio: [profile.bio, null]
       });
 
