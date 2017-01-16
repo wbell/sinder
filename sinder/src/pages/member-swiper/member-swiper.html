@@ -22,13 +22,10 @@
 <ion-content padding id="viewport">
   <div class="swing-stack" swing-stack  [stackConfig]="stackConfig"  #myswing1 (throwout)="onThrowOut($event)">
     <ion-card class="swing-card" swing-card #mycards1 *ngFor="let u of cards">
-      <ion-card-header>
-        <h2>{{u.displayName}} <small [hidden]="!u.nickName">({{u.nickName}})</small></h2>
-        <h3>{{staffLevels[u.staffLevel]}}</h3>
-      </ion-card-header>
       <img [src]="u.photoURL" alt="{{u.displayName}}">
       <ion-card-content>
-        <p class="bio">{{u.bio}}</p>
+        <h2>{{u.displayName}}</h2>
+        <h3>{{staffLevels[u.staffLevel]}}</h3>
         <div class="tags"><ion-chip *ngFor="let tag of u.tags"><ion-label>#{{tags[tag]}}</ion-label></ion-chip></div>
       </ion-card-content>
       <!-- <ion-row>

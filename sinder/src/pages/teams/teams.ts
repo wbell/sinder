@@ -66,7 +66,7 @@ export class TeamsPage {
     });
   }
 
-  addTeam(teamId, event?, slidingItem?: ItemSliding){
+  addTeam(teamId, slidingItem?: ItemSliding, event?){
     if(event) event.stopPropagation();
     if(slidingItem) slidingItem.close();
     this.navCtrl.push(TeamBuilderPage, {teamId: teamId});

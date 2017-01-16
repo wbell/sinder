@@ -29,8 +29,8 @@
   </div>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let team of teamsList" (tap)="goToChat(team, slidingItem)" #slidingItem>
-      <ion-item>
+    <ion-item-sliding *ngFor="let team of teamsList" #slidingItem>
+      <ion-item (tap)="goToChat(team, slidingItem)">
         <h2>{{team.name}}</h2>
         <h3>
           <span class="tag" *ngFor="let tag of team.tags">
@@ -43,10 +43,10 @@
         </p>
       </ion-item>
       <ion-item-options side="right" [hidden]="!team.isOwner">
-        <button ion-button icon-only (click)="addTeam(team.id, $event, slidingItem)">
+        <button ion-button icon-only (tap)="addTeam(team.id, slidingItem)">
           <ion-icon name="create"></ion-icon>
         </button>
-        <button ion-button icon-only color="danger" (click)="presentConfirm(team, $event)">
+        <button ion-button icon-only color="danger" (tap)="presentConfirm(team)">
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
