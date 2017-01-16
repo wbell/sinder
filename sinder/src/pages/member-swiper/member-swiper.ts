@@ -42,7 +42,11 @@ export class MemberSwiperPage {
     public params: NavParams
   ) {
     this.team = params.get('team');
-    this.stackConfig = {}; // configure later
+    this.stackConfig = {
+      throwOutConfidence: (offset, element)=>{
+        return Math.min(Math.abs(offset) / (element.offsetWidth / 2), 1);
+      }
+    }; // configure later
     this.getMeta();
   }
 
