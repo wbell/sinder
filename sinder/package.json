@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "start": "ionic serve --lab",
+    "deploy": "firebase deploy && ionic upload",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve"
   },
