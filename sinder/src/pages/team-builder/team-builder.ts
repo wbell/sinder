@@ -25,6 +25,8 @@ export class TeamBuilderPage {
 
   tags: any;
 
+  owner: Boolean = false;
+
   constructor(
     public params: NavParams,
     public navCtrl: NavController,
@@ -72,6 +74,9 @@ export class TeamBuilderPage {
   populateWithTeamInfo(teamId){
     console.log('populateWithTeamInfo', teamId);
     this.firebase.get('teams', teamId).then(team => {
+
+      this.owner = team.owner===this.authObj.uid;
+
       const promises = [
         team,
         this.firebase.get('users', team.owner),

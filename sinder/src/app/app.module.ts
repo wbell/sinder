@@ -12,6 +12,7 @@ import { TeamBuilderPage } from '../pages/team-builder/team-builder';
 import { SettingsPage } from '../pages/settings/settings';
 import { TeamChatPage } from '../pages/team-chat/team-chat';
 import { MemberSwiperPage } from '../pages/member-swiper/member-swiper';
+import { UserDetailPage } from '../pages/user-detail/user-detail';
 
 // providers
 import { Auth } from '../providers/auth';
@@ -30,6 +31,7 @@ import { KeysPipe } from '../pipes/keys';
     TeamBuilderPage,
     TeamChatPage,
     MemberSwiperPage,
+    UserDetailPage,
     KeysPipe
   ],
   imports: [
@@ -47,7 +49,8 @@ import { KeysPipe } from '../pipes/keys';
     TeamsPage,
     TeamBuilderPage,
     TeamChatPage,
-    MemberSwiperPage
+    MemberSwiperPage,
+    UserDetailPage
   ],
   providers: [
     Firebase,

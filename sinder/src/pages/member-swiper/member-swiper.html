@@ -7,9 +7,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Member Finder
+      {{team.name || 'Member Finder'}}
     </ion-title>
-    <ion-buttons start>
+    <ion-buttons end>
       <button ion-button (click)="dismiss()">
         <span color="primary" showWhen="ios">Done</span>
         <ion-icon name="md-checkmark" showWhen="android,windows"></ion-icon>
@@ -21,8 +21,8 @@
 
 <ion-content padding id="viewport">
   <div class="swing-stack" swing-stack  [stackConfig]="stackConfig"  #myswing1 (throwout)="onThrowOut($event)">
-    <ion-card class="swing-card" swing-card #mycards1 *ngFor="let u of cards">
-      <img [src]="u.photoURL" alt="{{u.displayName}}">
+    <ion-card class="swing-card" swing-card #mycards1 *ngFor="let u of cards" (tap)="onTap(u)">
+      <img [src]="u.photoURL" [alt]="u.displayName">
       <ion-card-content>
         <h2>{{u.displayName}}</h2>
         <h3>{{staffLevels[u.staffLevel]}}</h3>

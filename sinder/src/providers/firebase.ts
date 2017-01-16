@@ -48,7 +48,16 @@ export class Firebase {
     }
   }
 
-  getArray(path, ids, options?){
+  getPaths(paths:Array<String>){
+    let promises = [];
+    paths.forEach(path=>{
+      promises.push(this.get(path));
+    });
+
+    return Promise.all(promises);
+  }
+
+  getArray(path:String, ids:Array<String>, options?:any){
     let promises = [];
     ids.forEach(id=>{
       promises.push(this.get(path, id).then(val =>{

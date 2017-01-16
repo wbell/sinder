@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ToastController, Content } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Content, ModalController } from 'ionic-angular';
 import { Firebase } from '../../providers/firebase';
 import { Auth } from '../../providers/auth';
+import { UserDetailPage } from '../user-detail/user-detail';
+import { TeamBuilderPage } from '../team-builder/team-builder';
 import _omit from 'lodash/omit';
 
 /*
@@ -36,6 +38,7 @@ export class TeamChatPage {
   constructor(
     public navCtrl: NavController,
     public toastCtrl: ToastController,
+    public modalCtrl: ModalController,
     public params: NavParams,
     public firebase: Firebase,
     public auth: Auth
@@ -164,6 +167,16 @@ export class TeamChatPage {
 
   scrollToBottom(duration?: number){
     this.content1.scrollToBottom(duration);
+  }
+
+  userDetail(user){
+    let userModal = this.modalCtrl.create(UserDetailPage, { user: user });
+
+    userModal.present();
+  }
+
+  teamDetails(teamId){
+    this.navCtrl.push(TeamBuilderPage, {teamId: teamId});
   }
 
   ionViewDidLoad() {

@@ -8,8 +8,9 @@
   <ion-navbar>
     <ion-title>{{team.name}}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only color="primary" (click)="presentPopover">
-        <ion-icon name="more"></ion-icon>
+      <button ion-button icon-only color="primary" (click)="teamDetails(team.id)">
+        <ion-icon name="information-circle" showWhen="android,windows"></ion-icon>
+        <ion-icon name="information-circle-outline" showWhen="ios"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -23,7 +24,7 @@
     </ion-item>
     <ion-item-sliding *ngFor="let m of chat | keys">
       <ion-item>
-        <ion-avatar item-left>
+        <ion-avatar item-left (tap)="userDetail(chatters[m.value.by])">
           <img [src]="chatters[m.value.by].photoURL" [alt]="chatters[m.value.by].displayName">
         </ion-avatar>
         <p>{{m.value.message}}</p>

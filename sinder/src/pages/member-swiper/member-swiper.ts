@@ -1,7 +1,8 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { StackConfig, Stack, Card, ThrowEvent, DragEvent, SwingStackComponent, SwingCardComponent} from 'angular2-swing';
 import { Firebase } from '../../providers/firebase';
+import { UserDetailPage } from '../user-detail/user-detail';
 import _sortBy from 'lodash/sortBy';
 import _intersection from 'lodash/intersection';
 import _shuffle from 'lodash/shuffle';
@@ -21,11 +22,13 @@ export class MemberSwiperPage {
   @ViewChild('myswing1') swingStack: SwingStackComponent;
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
-  cards: Array<any>;
+  cards: Array<any> = [];
 
   stackConfig: StackConfig;
 
   tags: any;
+
+  team: any;
 
   staffLevels: any;
 
@@ -34,20 +37,19 @@ export class MemberSwiperPage {
   constructor(
     public navCtrl: NavController,
     public viewCtrl: ViewController,
+    public modalCtrl: ModalController,
     public firebase: Firebase,
     public params: NavParams
   ) {
+    this.team = params.get('team');
     this.stackConfig = {}; // configure later
     this.getMeta();
   }
 
   getMeta(){
-    let metas = [];
+    let metas = ['tags', 'staff-levels'];
 
-    metas.push(this.firebase.get('tags'));
-    metas.push(this.firebase.get('staff-levels'));
-
-    Promise.all(metas).then(res => {
+    this.firebase.getPaths(metas).then(res => {
       this.tags = res[0];
       this.staffLevels = res[1];
     });
@@ -87,7 +89,7 @@ export class MemberSwiperPage {
   }
 
   sortCards(unsorted){
-    console.log('unsorted', unsorted);
+    // console.log('unsorted', unsorted);
 
     let chosenTags = this.params.get('team').tags || null;
 
@@ -98,12 +100,15 @@ export class MemberSwiperPage {
       let sorted = _sortBy(_shuffle(unsorted), [card =>{
         let matchingTags = _intersection(chosenTags, card.tags || []);
         return matchingTags.length;
+      }, card=>{
+        let matchingTags = _intersection(chosenTags, card.tags || []);
+        return (matchingTags.length===card.tags.length) && matchingTags.length > 0;
       }]);
 
       this.cards = sorted;
     }
 
-    console.log('this.cards', this.cards);
+    // console.log('this.cards', this.cards);
 
     this.cardsLoaded();
   }
@@ -145,12 +150,23 @@ export class MemberSwiperPage {
     }
   }
 
+  onTap(user){
+    let userModal = this.modalCtrl.create(UserDetailPage, { user: user });
+
+    userModal.present();
+  }
+
   ionViewDidEnter(){
-    this.getEmployeeCards();
+
   }
 
   ionViewDidLoad() {
     console.log('Hello MemberSwiperPage Page');
+    this.getEmployeeCards();
+  }
+
+  ionViewWillLeave(){
+    this.firebase.getRef('users').off();
   }
 
 }
