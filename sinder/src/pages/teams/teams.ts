@@ -31,7 +31,6 @@ export class TeamsPage {
     public firebase: Firebase
   ) {
     this.authObj = auth.getUser();
-
   }
 
   getTags(){
@@ -42,7 +41,7 @@ export class TeamsPage {
   }
 
   getTeams(uid){
-    this.firebase.get('teams').then(teamObj => {
+    return this.firebase.get('teams').then(teamObj => {
 
       console.log('teamObj', teamObj);
 
@@ -63,6 +62,8 @@ export class TeamsPage {
       }
       console.log('teamsList', teamsList);
       this.teamsList = teamsList;
+
+      return teamsList;
     });
   }
 
@@ -76,7 +77,7 @@ export class TeamsPage {
     console.log('Actually delete this team', team);
     this.firebase.update({inactive: true}, 'teams', team.id).then(res =>{
       console.log('team successfully deleted', res);
-      this.ionViewDidEnter();
+      this.ionViewWillEnter();
       this.presentToast('"'+team.name+'" was successfully deleted.');
     });
   }
@@ -132,9 +133,9 @@ export class TeamsPage {
     console.log('Hello TeamsPage Page');
   }
 
-  ionViewDidEnter(){
-    this.getTags().then(()=>{
-      this.getTeams(this.authObj.uid);
+  ionViewWillEnter(){
+    return this.getTags().then(()=>{
+      return this.getTeams(this.authObj.uid);
     });
   }
 
