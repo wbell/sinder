@@ -102,10 +102,12 @@ export class MemberSwiperPage {
     } else {
 
       let sorted = _sortBy(_shuffle(unsorted), [card =>{
-        let matchingTags = _intersection(chosenTags, card.tags || []);
+        card.tags = card.tags || [];
+        let matchingTags = _intersection(chosenTags, card.tags);
         return matchingTags.length;
       }, card=>{
-        let matchingTags = _intersection(chosenTags, card.tags || []);
+        card.tags = card.tags || [];
+        let matchingTags = _intersection(chosenTags, card.tags);
         return (matchingTags.length===card.tags.length) && matchingTags.length > 0;
       }]);
 
