@@ -46,6 +46,13 @@
       </ion-item>
 
       <ion-item>
+        <ion-label stacked>Staff Level</ion-label>
+        <ion-select [formControl]="profile.controls['staffLevel']">
+          <ion-option *ngFor="let level of staffLevels | keys" [value]="level.key">{{level.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
         <ion-label stacked>Tags</ion-label>
         <ion-select [formControl]="profile.controls['tags']" multiple="true">
           <ion-option *ngFor="let tag of tags | keys" [value]="tag.key">{{tag.value}}</ion-option>
