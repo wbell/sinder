@@ -102,6 +102,8 @@ export class TeamBuilderPage {
 
   populateWithProfileInfo(){
 
+    this.owner = true;
+
     this.firebase.get('users', this.authObj.uid).then(profile => {
 
       this.team = this.fb.group({
