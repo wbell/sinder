@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Auth } from '../../providers/auth';
 import { Firebase } from '../../providers/firebase';
 import { MemberSwiperPage } from '../member-swiper/member-swiper';
+import { UserDetailPage } from '../user-detail/user-detail';
 import { ArrayMinLength } from '../../validators/array-length';
 import _without from 'lodash/without';
 
@@ -119,7 +120,9 @@ export class TeamBuilderPage {
     });
   }
 
-  deleteMember(member){
+  deleteMember(member, evt){
+    if(evt) evt.stopPropagation();
+
     let currentMembers = this.team.controls['members'].value;
     let filtered = _without(currentMembers, member);
 
@@ -165,6 +168,12 @@ export class TeamBuilderPage {
     });
 
     memberModal.present();
+  }
+
+  userDetail(user){
+    let userModal = this.modalCtrl.create(UserDetailPage, {user: user});
+
+    userModal.present();
   }
 
   ionViewDidLoad() {

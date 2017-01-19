@@ -39,9 +39,9 @@
         <div item-content class="member-chips">
           <p [hidden]="team.controls['members'].value.length">No members yet</p>
           <div [hidden]="!team.controls['members'].value.length">
-            <ion-chip *ngFor="let chip of team.controls['members'].value">
+            <ion-chip *ngFor="let chip of team.controls['members'].value" (click)="userDetail(chip)">
               <ion-label>{{chip.displayName}}</ion-label>
-              <button [hidden]="!owner" ion-button clear color="primary" (click)="deleteMember(chip)">
+              <button [hidden]="!owner" ion-button clear color="primary" (tap)="deleteMember(chip)">
                 <ion-icon name="close-circle"></ion-icon>
               </button>
             </ion-chip>
