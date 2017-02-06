@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
-import { StackConfig, Stack, Card, ThrowEvent, DragEvent, SwingStackComponent, SwingCardComponent} from 'angular2-swing';
+import { StackConfig, ThrowEvent, SwingStackComponent, SwingCardComponent} from 'angular2-swing';
 import { Firebase } from '../../providers/firebase';
 import { UserDetailPage } from '../user-detail/user-detail';
 import _sortBy from 'lodash/sortBy';
@@ -120,31 +120,9 @@ export class MemberSwiperPage {
   }
 
   cardsLoaded(){
-    // // ViewChild & ViewChildren are only available
-    // // in this function
-    //
-    // console.log('swingStack', this.swingStack); // this is the stack
-    // console.log('swingCards', this.swingCards); // this is a list of cards
-    //
-    // // we can get the underlying stack
-    // // which has methods - createCard, destroyCard, getCard etc
-    // console.log('swingStack.stack', this.swingStack.stack);
-    //
-    // // and the cards
-    // // every card has methods - destroy, throwIn, throwOut etc
-    // this.swingCards.forEach((c) => console.log('c.getCards', c.getCard()));
-    //
-    // // this is how you can manually hook up to the
-    // // events instead of providing the event method in the template
-    // this.swingStack.throwoutleft.subscribe((event: ThrowEvent) => console.log('Manual hook: ', event));
-    //
-    // this.swingStack.dragstart.subscribe((event: DragEvent) => console.log('dragstart', event));
-    //
-    // this.swingStack.dragmove.subscribe((event: DragEvent) => console.log('dragmove', event));
+    // console.log('Cards Loaded: this.cards', this.cards);
   }
 
-  // This method is called by hooking up the event
-  // on the HTML element - see the template above
   onThrowOut(event: ThrowEvent) {
     console.log('Hook from the template', event.throwDirection);
     let card = this.cards.pop();

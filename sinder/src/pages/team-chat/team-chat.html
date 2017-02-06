@@ -9,7 +9,7 @@
     <ion-title>{{team.name}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="primary" (click)="teamDetails(team.id)">
-        <ion-icon name="information-circle" showWhen="android,windows"></ion-icon>
+        <ion-icon name="information-circle" hideWhen="ios"></ion-icon>
         <ion-icon name="information-circle-outline" showWhen="ios"></ion-icon>
       </button>
     </ion-buttons>
